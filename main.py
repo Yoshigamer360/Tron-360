@@ -41,3 +41,14 @@ def newGame():
     newP1 = Player(50, height / 2, (2, 0), colourPlayer1)
     newP2 = Player(width - 50, height / 2, (-2, 0), colourPlayer2)
     return newP1, newP2
+
+# Set up the game window
+width, height = 600,660
+offset = height - width
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Tron by Yoshi_Gamer_360")
+
+# Font and clock
+font = pygame.font.SysFont("Centaur", 72)
+clock = pygame.time.Clock()
+checkTime = time.time()

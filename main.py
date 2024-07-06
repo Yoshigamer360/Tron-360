@@ -71,3 +71,33 @@ wallRects = [
     pygame.Rect([0, offset, width, 15]),
     pygame.Rect([width - 15, offset, 15, height]),
     pygame.Rect([0, height - 15, width, 15])]
+
+# Game state
+done = False
+new = False
+
+# Game play loop
+while not done:
+    # Loop over all events happening in the game
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+        elif event.type == pygame.KEYDOWN:
+            # Player 1 controls
+            if event.key == pygame.K_w:
+                objects[0].bearing = (0, -2)
+            elif event.key == pygame.K_s:
+                objects[0].bearing = (0, 2)
+            elif event.key == pygame.K_a:
+                objects[0].bearing = (-2, 0)
+            elif event.key == pygame.K_d:
+                objects[0].bearing = (2, 0)
+            # Player 2 controls
+            if event.key == pygame.K_UP:
+                objects[1].bearing = (0, -2)
+            elif event.key == pygame.K_DOWN:
+                objects[1].bearing = (0, 2)
+            elif event.key == pygame.K_LEFT:
+                objects[1].bearing = (-2, 0)
+            elif event.key == pygame.K_RIGHT:
+                objects[1].bearing = (2, 0)

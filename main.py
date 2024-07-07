@@ -20,7 +20,7 @@ colourText = (221, 222, 240)
 
 # Player class
 class Player:
-    def __init__(self, x, y , bearing , colour):
+    def __init__(self, x, y, bearing , colour):
         self.x = x
         self.y = y
         self.bearing = bearing
@@ -156,4 +156,3 @@ while not done:
     clock.tick(60)
 
 pygame.quit()
-

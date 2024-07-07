@@ -101,3 +101,59 @@ while not done:
                 objects[1].bearing = (-2, 0)
             elif event.key == pygame.K_RIGHT:
                 objects[1].bearing = (2, 0)
+                    
+    screen.fill(colourBackground)
+
+    # Render the walls
+    for r in wallRects:
+        pygame.draw.rect(screen, colourWalls, r, 0)
+
+    # Loop over players
+    for obj in objects:
+        if (obj.rect, '1') in path or (obj.rect, '2') in path or \
+           obj.rect.collidelist(wallRects) > -1:
+            if (time.time() - checkTime) >= 0.1:
+                checkTime = time.time()
+                if obj.colour == colourPlayer1:
+                    playerScore[1] += 1
+                else:
+                    playerScore[0] += 1
+                new = True
+                newP1, newP2= newGame()
+                objects = [newP1, newP2]
+                path = [(p1.rect, '1'), (p2.rect, '2')]
+                break
+        else:
+            if obj.colour == colourPlayer1:
+                path.append((obj.rect, '1'))
+            else:
+                path.append((obj.rect, '2'))
+        obj.draw()
+        obj.move()
+
+    # Loop over the paths and render them
+    for rect in path:
+        if new is True:
+            path = []
+            new = False
+            break
+        if rect[1] == '1':
+            pygame.draw.rect(screen, colourPlayer1, rect[0], 0)
+        else:
+            pygame.draw.rect(screen, colourPlayer2, rect[0], 0)
+
+    # Render the score text
+    scoreText = font.render(f"{playerScore[0]} : {playerScore[1]}",
+                             True, colourText)
+    scoreTextRect = scoreText.get_rect()
+    scoreTextRect.centerx = int(width/2)
+    scoreTextRect.centery = int(offset/2)
+    screen.blit(scoreText, scoreTextRect)
+    
+    # Update the current frame
+    pygame.display.flip()
+    # Set the frame rate (speed)
+    clock.tick(60)
+
+pygame.quit()
+
